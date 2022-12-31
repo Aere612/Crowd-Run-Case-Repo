@@ -8,7 +8,7 @@ public class Stairs : MonoBehaviour
     {
         if (other.CompareTag("human"))
         {
-            other.transform.parent = transform;
+            other.transform.parent = null;
             Debug.Log("Girdi");
 
         }

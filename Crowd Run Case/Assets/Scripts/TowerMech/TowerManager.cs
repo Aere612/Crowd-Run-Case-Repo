@@ -73,7 +73,7 @@ public class TowerManager : MonoBehaviour
         {
             foreach (GameObject child in towerList)
             {
-                child.transform.localPosition += new Vector3(0,0.3f,0);
+                child.transform.localPosition += new Vector3(0,0.4f,0);
             }
             tower = new GameObject("Row" + towerId);
             tower.transform.parent = transform;
@@ -86,7 +86,7 @@ public class TowerManager : MonoBehaviour
                 Transform child = transform.GetChild(i);
                 if (child.CompareTag("human"))
                 {
-                    child.GetComponent<Collider>().isTrigger = true;
+                    //child.GetComponent<Collider>().isTrigger = true;
                     //child.GetComponent<MoveToDirection>().StopMoveToDirection();
                     //child.GetComponent<Movement>().StopMovement();
 
