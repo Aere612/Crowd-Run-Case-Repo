@@ -18,7 +18,7 @@ public class TowerManager : MonoBehaviour
         towerCountList = new List<int>();
         towerList = new List<GameObject>();
         //camAnims = Camera.main.transform.parent.GetComponent<CameraMovement>();
-        Build();
+        Build(); // Finish çizgisinden geçtiðinde bu çalýþmalý
     }
     void Update()
     {
@@ -39,7 +39,7 @@ public class TowerManager : MonoBehaviour
     }
     void FillTowerList()
     {
-        int humanCount = 21; // Bunu baþka bir scriptten almam lazým
+        int humanCount = 50; // Bunu baþka bir scriptten almam lazým
 
         for (int i = 1; i <= perRowMaxHumanCount; i++)
         {
@@ -75,7 +75,7 @@ public class TowerManager : MonoBehaviour
             {
                 child.transform.localPosition += new Vector3(0,0.3f,0);
             }
-            tower = new GameObject("Tower" + towerId);
+            tower = new GameObject("Row" + towerId);
             tower.transform.parent = transform;
             tower.transform.localPosition = new Vector3(0, 0.3f, 0);
             towerList.Add(tower);

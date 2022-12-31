@@ -6,7 +6,11 @@ public class Stairs : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        other.transform.parent = transform;
-        Debug.Log("Girdi");
+        if (other.CompareTag("human"))
+        {
+            other.transform.parent = transform;
+            Debug.Log("Girdi");
+
+        }
     }
 }
