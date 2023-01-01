@@ -7,7 +7,6 @@ public class PrizeMark : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        other.GetComponent<Rigidbody>().useGravity = true;
-        other.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(0.1f,1f), Random.Range(0.1f, 1f), Random.Range(0.1f, 1f)),ForceMode.Impulse);
+        other.GetComponent<Rigidbody>().useGravity = true; // BURAYA FARKLI ÞEYLER GELEBÝLÝR ANÝAMSYONU TAM YAPAMADIÐIM ÝÇÝN GRAVÝTY AÇTIM
     }
 }

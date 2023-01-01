@@ -6,108 +6,114 @@ using UnityEngine.EventSystems;
 
 public class TowerManager : MonoBehaviour
 {
-    [SerializeField] int perRowMaxHumanCount;
-    [SerializeField] float distanceBetweenHumans;
-    List<int> towerCountList;
-    List<GameObject> towerList;
-    //CameraMovement camAnims;
-    bool move;
+    [SerializeField] int maxHumanPerRow;
+    [SerializeField] float offsetBetweenHumans;
+    
+    List<int> rowCountList;
+    List<GameObject> rowList;
+    
+    //CameraMovement camAnims;  // Kamera hareketleri için aþaðýda yorum satýrý içinde bulunan kamera kodlarý incelenebilir. Yapan kiþi cinemachine kullanýyordu.
+    [HideInInspector] public bool canMove;
 
     private void Start()
     {
-        towerCountList = new List<int>();
-        towerList = new List<GameObject>();
+        rowCountList = new List<int>();
+        rowList = new List<GameObject>();
+        
         //camAnims = Camera.main.transform.parent.GetComponent<CameraMovement>();
-        Build(); // Finish çizgisinden geçtiðinde bu çalýþmalý
+        
+        Build(); // FINISH ÇÝZGÝSÝNDEN GEÇÝNCE BU ÇALIÞMALI
     }
     void Update()
     {
-        if (move)
+        if (canMove)
         {
-            transform.GetComponent<AltayMovement>().Move(Vector3.back);
+            transform.GetComponent<TowerMovement>().Move(Vector3.back); // SCENE KURGUSUNA BAÐLI OLARAK BU VEKTÖR DEÐÝÞMELÝ
         }
+        
     }
     public void Build()
     {
-        //GetComponent<TeamLeader>().TextActiveFalse();
-        //GetComponent<MoveToDirection>().StopMoveToDirection();
-        //GetComponent<Movement>().StopMovement();
+        //BURADA KARAKTERLERÝN KENDÝ HAREKETLERÝ DURDURULMALI ÇÜNKÜ TOWER KENDÝ HAREKETÝNE BAÞLAYACAK
+        //GetComponent<Movement>().CanMove = false;
 
         FillTowerList();
         StartCoroutine(BuildTowerCoroutine());
+        
         //camAnims.EndGameAnim(towerList[0].transform);
     }
     void FillTowerList()
     {
-        int humanCount = 50; // Bunu baþka bir scriptten almam lazým
+        //int humanCount = GameManager.Instance.manCount;
+        
+        int humanCount = 50; // BU SATIRI KAPATIP ÜSTTEKÝ SATIRI AÇIN
 
-        for (int i = 1; i <= perRowMaxHumanCount; i++)
+        for (int i = 1; i <= maxHumanPerRow; i++)
         {
             if (humanCount < i)
-            {
                 break;
-            }
+            
             humanCount -= i;
-            towerCountList.Add(i);
+            rowCountList.Add(i);
         }
-        for (int i = perRowMaxHumanCount; i > 0; i--)
+        for (int i = maxHumanPerRow; i > 0; i--)
         {
             if (humanCount >= i)
             {
                 humanCount -= i;
-                towerCountList.Add(i);
+                rowCountList.Add(i);
                 i++;
             }
         }
-        towerCountList.Sort();
+        rowCountList.Sort();
     }
     IEnumerator BuildTowerCoroutine()
     {
-        int towerId = 0;
+        int rowId = 0;
         Vector3 sum;
-        GameObject tower;
-        float tempTowerHumanCount;
+        GameObject row;
+        float tempRowHumanCount;
         transform.position = new Vector3(0, transform.position.y, transform.position.z);
 
-        foreach (int towerHumanCount in towerCountList)
+        foreach (int rowHumanCount in rowCountList)
         {
-            foreach (GameObject child in towerList)
+            foreach (GameObject child in rowList)
             {
                 child.transform.localPosition += new Vector3(0,0.4f,0);
             }
-            tower = new GameObject("Row" + towerId);
-            tower.transform.parent = transform;
-            tower.transform.localPosition = new Vector3(0, 0.3f, 0);
-            towerList.Add(tower);
+            row = new GameObject("Row" + rowId);
+            row.transform.parent = transform;
+            row.transform.localPosition = new Vector3(0, 0.3f, 0);
+            rowList.Add(row);
             sum = Vector3.zero;
-            tempTowerHumanCount = 0;
+            tempRowHumanCount = 0;
             for (int i = 0; i < transform.childCount; i++)
             {
                 Transform child = transform.GetChild(i);
                 if (child.CompareTag("human"))
                 {
-                    //child.GetComponent<Collider>().isTrigger = true;
-                    //child.GetComponent<MoveToDirection>().StopMoveToDirection();
-                    //child.GetComponent<Movement>().StopMovement();
+                    //child.GetComponent<Movement>().CanMove = false;  //BU SATIRI AÇIN
 
-                    child.transform.parent = tower.transform;
-                    child.transform.localPosition = new Vector3(tempTowerHumanCount * distanceBetweenHumans, 0, 0);
+                    child.transform.parent = row.transform;
+                    child.transform.localPosition = new Vector3(tempRowHumanCount * offsetBetweenHumans, 0, 0);
+                    
                     sum += child.transform.position;
-                    tempTowerHumanCount++;
+                    tempRowHumanCount++;
                     i--;
-                    if (tempTowerHumanCount >= towerHumanCount)
-                    {
+                    
+                    if (tempRowHumanCount >= rowHumanCount)
                         break;
-                    }
                 }
             }
-            tower.transform.position = new Vector3(-sum.x / towerHumanCount, tower.transform.position.y, tower.transform.position.z);
+
+            row.transform.position = new Vector3(-sum.x / rowHumanCount, row.transform.position.y, row.transform.position.z);
             sum = Vector3.zero;
-            towerId++;
+            rowId++;
+            
             yield return new WaitForSeconds(0.1f);
         }
-        //GetComponent<Movement>().StartMovement();
-        move = true;
+        //GetComponent<Movement>().StartMovement(); // TOWER YAPILDIKTAN SONRA KARAKTERLÝN YÜRÜME ANÝMASYONU BURADAN BAÞLATILABÝLÝR.
+        canMove = true;
     }
     
 }
