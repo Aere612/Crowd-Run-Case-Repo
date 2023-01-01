@@ -18,11 +18,11 @@ public class GameManager : MonoSingleton<GameManager>
         manCount=Player.transform.childCount+1;
     }
  public void FormatSticMan(){
-    for(int i = 0; i < manCount-1; i++) {
+    for(int i = 0; i < manCount-2; i++) {
         var x=distanceFactor *Mathf.Sqrt(i) *Mathf.Cos(radius*i);
         var z=distanceFactor *Mathf.Sqrt(i) *Mathf.Sin(radius*i);
 
-        var newPos=new Vector3(x+1f,1f,z+1.8f);
+        var newPos=new Vector3(x,1f, z);
         Player.transform.GetChild(i).DOLocalMove(newPos,1).SetEase(Ease.OutBack);
     }
  }
