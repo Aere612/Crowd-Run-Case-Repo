@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Movement : MonoBehaviour {
 
@@ -11,6 +12,9 @@ public class Movement : MonoBehaviour {
     [SerializeField] private float maxPositionX = 2f;
     private Vector2 _anchorPosition;
 
+    [Header("UI")]
+    [SerializeField] TextMeshProUGUI text;
+
     Camera cam;
     Vector3 camOffset;
 
@@ -18,9 +22,11 @@ public class Movement : MonoBehaviour {
     bool canForward;
     bool canSide, canMove;
     bool isInit = false;
+    bool isLead = false;
     public bool ComForward { get { return canForward; } set { canForward = value; } }
     public bool Canside { get { return canSide; } set { canSide = value; } }
     public bool CanMove { get { return canMove; } set { canMove = value; } }
+
     private void Start() {
         Initialize();
     }
@@ -31,6 +37,10 @@ public class Movement : MonoBehaviour {
 
         cam = Camera.main;
         camOffset = cam.transform.position - this.transform.position;
+
+        SetIslead(false, 0);
+
+        LeadManager.Instance.AddToList(this);
 
         isInit= true;
     }
@@ -98,6 +108,19 @@ public class Movement : MonoBehaviour {
     #region CAMERA
     void MoveCam() {
         cam.transform.position = this.transform.position + camOffset;
+    }
+    #endregion
+    #region UI
+    public void SetUI(int count) {
+        text.gameObject.SetActive(false);
+        if(isLead) {
+            text.gameObject.SetActive(true);
+            text.SetText(count.ToString());
+        }
+    }
+    public void SetIslead(bool value, int count) {
+        isLead = value;
+        SetUI(count);
     }
     #endregion
 }
