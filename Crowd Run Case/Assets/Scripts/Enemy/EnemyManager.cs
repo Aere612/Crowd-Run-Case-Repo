@@ -26,7 +26,10 @@ public class EnemyManager : MonoBehaviour
     #region Temp
     Vector3 radiusTemp;
     #endregion
+    public LeadManager leadManager;
+    public Movement movement;
     #endregion
+
     #region Unity functions
     private void Awake()
     {
@@ -41,7 +44,7 @@ public class EnemyManager : MonoBehaviour
         //Saldýrýya baþlamak için gereken uzaklýk
         if (Vector3.Distance(transform.position, player.transform.position) < distanceToAttack && attacking == false)
         {
-            //TODO:player kontrollerý kapat
+            movement.CanMove = false;
             attacking = true;
         }
         
@@ -85,6 +88,6 @@ public class EnemyManager : MonoBehaviour
     }
     ~EnemyManager()
     {
-        //Karakterin kontrollerýný aç
+        movement.CanMove = true;
     }
 }
