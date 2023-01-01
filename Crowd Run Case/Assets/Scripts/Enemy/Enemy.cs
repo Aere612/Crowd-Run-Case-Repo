@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     {
         if(manager.attacking)
         {
-            transform.LookAt(manager.player.transform.position);
+            transform.LookAt(new Vector3(manager.player.transform.position.x , transform.position.y , manager.player.transform.position.z));
             GetComponent<Rigidbody>().velocity = transform.forward * speed;
         }
     }
@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            //Destroy(other.gameObject);
+            manager.leadManager.RemoveFromList(other.gameObject.GetComponent<Movement>());
             manager.amountOfEnemy--;
             Destroy(gameObject);
         }
