@@ -46,6 +46,11 @@ public class Movement : MonoSingleton<Movement>
         isInit= true;
     }
     private void Update() {
+        if (!canMove)
+        {
+            GetComponent<Animator>().SetBool("Kos", false);
+        }
+        else GetComponent<Animator>().SetBool("Kos", true);
         if (!isInit || !canMove)
             return;
         MoveForward();
@@ -61,6 +66,7 @@ public class Movement : MonoSingleton<Movement>
         if (!canForward)
             return;
         this.transform.position += Vector3.forward * (moveSpeed * Time.deltaTime);
+       
     }
     void MoveSide() {
         if (!canSide)
