@@ -8,6 +8,7 @@ TagManager:
   - stair
   - prizeMark
   - prize
+  - Clone
   layers:
   - Default
   - TransparentFX

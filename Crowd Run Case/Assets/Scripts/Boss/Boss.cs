@@ -29,7 +29,7 @@ public class Boss : MonoBehaviour
     }
     public void Update()
     {
-        if (Player.transform.position.z>80)
+        if (Player.transform.position.z > 80)
         {
             walk = true;
         }
