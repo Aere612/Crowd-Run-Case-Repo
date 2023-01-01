@@ -13,13 +13,19 @@ public class UIController : MonoBehaviour
     public GameObject object6;
     public GameObject Settings;
 
+    public void StartingGame()
+    {
+        Movement.Instance.CanMove = true;
+    }
     public void SettingsOpen()
     {
         Settings.SetActive(true);
+        object6.SetActive(false);
     }
     public void SettingsClose()
     {
         Settings.SetActive(false);
+        object6.SetActive(true);
     }
     public void SetObject1Active()
     {
