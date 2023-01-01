@@ -9,7 +9,7 @@ public class Boss : MonoBehaviour
     public GameObject Player;
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Clone"))
         {
             GetComponent<Animator>().SetBool("isWalking",false);
             walk = false;
