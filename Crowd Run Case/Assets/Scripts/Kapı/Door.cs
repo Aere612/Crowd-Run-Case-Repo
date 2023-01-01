@@ -29,7 +29,7 @@ public class Door : MonoBehaviour
    }
    
    private void OnTriggerEnter(Collider other) {
-     Debug.Log("degdi");
+     Debug.Log("Degdi");
     if(other.tag == "Player"){
         Debug.Log("degdi");
         if(doorIslem==GameManager.Islem.toplama){
