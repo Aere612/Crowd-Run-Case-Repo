@@ -20,9 +20,9 @@ public class GameManager : MonoSingleton<GameManager>
  public void FormatSticMan(){
     for(int i = 0; i < manCount-1; i++) {
         var x=distanceFactor *Mathf.Sqrt(i) *Mathf.Cos(radius*i);
-         var z=distanceFactor *Mathf.Sqrt(i) *Mathf.Sin(radius*i);
+        var z=distanceFactor *Mathf.Sqrt(i) *Mathf.Sin(radius*i);
 
-        var newPos=new Vector3(x,-0.55f,z+0.8f);
+        var newPos=new Vector3(x+1f,1f,z+1.8f);
         Player.transform.GetChild(i).DOLocalMove(newPos,1).SetEase(Ease.OutBack);
     }
  }
