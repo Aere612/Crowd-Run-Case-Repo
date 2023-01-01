@@ -5,7 +5,8 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     public int bossHP = 100;
-    public bool walk = true, kill = false ,canSwing=true;
+    public bool walk = false, kill = false ,canSwing=true;
+    public GameObject Player;
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -19,7 +20,7 @@ public class Boss : MonoBehaviour
             }
             if (kill)
             {
-                //kill players
+                Destroy(other.gameObject);
                 kill = false;
                 //counteri azalt
                 bossHP -= 100;
@@ -28,7 +29,10 @@ public class Boss : MonoBehaviour
     }
     public void Update()
     {
-
+        if (Player.transform.position.z>80)
+        {
+            walk = true;
+        }
         if (walk)
         {
             GetComponent<Animator>().SetBool("isWalking", true);
@@ -41,10 +45,10 @@ public class Boss : MonoBehaviour
     }
     IEnumerator Swing()
     {
-        //swing anim start
+        GetComponent<Animator>().SetBool("isSwing", true);
         yield return new WaitForSeconds(1f);
         kill=true;
-        //swing anim end
+        GetComponent<Animator>().SetBool("isSwing", true);
         canSwing = true;
         yield return null;
     }

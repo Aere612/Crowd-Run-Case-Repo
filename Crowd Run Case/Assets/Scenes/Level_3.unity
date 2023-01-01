@@ -4025,7 +4025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 28125c130725ef24896c1634a7b344c8, type: 3}
       propertyPath: m_Name
-      value: karakter_boss_Idle
+      value: Boss
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28125c130725ef24896c1634a7b344c8, type: 3}
@@ -4063,6 +4063,7 @@ MonoBehaviour:
   walk: 1
   kill: 0
   canSwing: 1
+  Player: {fileID: 1855973626}
 --- !u!54 &584361002
 Rigidbody:
   m_ObjectHideFlags: 0
