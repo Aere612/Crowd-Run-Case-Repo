@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Movement : MonoBehaviour {
+public class Movement : MonoSingleton<Movement>
+{
 
 
     [Header("Elements")]
@@ -33,7 +34,7 @@ public class Movement : MonoBehaviour {
     public void Initialize() {
         canForward = true;
         canSide = true;
-        canMove = true;
+        canMove = false;
 
         cam = Camera.main;
         camOffset = cam.transform.position - this.transform.position;
