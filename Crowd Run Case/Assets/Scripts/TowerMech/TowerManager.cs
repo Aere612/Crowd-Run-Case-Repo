@@ -79,11 +79,11 @@ public class TowerManager : MonoBehaviour
         {
             foreach (GameObject child in rowList)
             {
-                child.transform.localPosition += new Vector3(0,0.4f,0);
+                child.transform.localPosition += new Vector3(0,0.4f,0); // ROWLARIN ARASINDAKÝ YÜKSEKLÝÐÝ BU BELÝRLÝYOR
             }
             row = new GameObject("Row" + rowId);
             row.transform.parent = transform;
-            row.transform.localPosition = new Vector3(0, 0.3f, 0);
+            row.transform.localPosition = new Vector3(0, 0.3f, 0); //ROWLARIN OLUÞMAYA BAÞLADIÐI POZÝSYON
             rowList.Add(row);
             sum = Vector3.zero;
             tempRowHumanCount = 0;
