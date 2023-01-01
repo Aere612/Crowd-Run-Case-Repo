@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.EventSystems;
 
-public class TowerManager : MonoBehaviour
+public class TowerManager : MonoSingleton<TowerManager>
 {
     [SerializeField] int maxHumanPerRow;
     [SerializeField] float offsetBetweenHumans;
@@ -22,13 +22,13 @@ public class TowerManager : MonoBehaviour
         
         //camAnims = Camera.main.transform.parent.GetComponent<CameraMovement>();
         
-        Build(); // FINISH ÇÝZGÝSÝNDEN GEÇÝNCE BU ÇALIÞMALI
+        //Build();  FINISH ÇÝZGÝSÝNDEN GEÇÝNCE BU ÇALIÞMALI
     }
     void Update()
     {
         if (canMove)
         {
-            transform.GetComponent<TowerMovement>().Move(Vector3.back); // SCENE KURGUSUNA BAÐLI OLARAK BU VEKTÖR DEÐÝÞMELÝ
+            transform.GetComponent<TowerMovement>().Move(Vector3.forward); // SCENE KURGUSUNA BAÐLI OLARAK BU VEKTÖR DEÐÝÞMELÝ
         }
         
     }
@@ -36,7 +36,7 @@ public class TowerManager : MonoBehaviour
     {
         //BURADA KARAKTERLERÝN KENDÝ HAREKETLERÝ DURDURULMALI ÇÜNKÜ TOWER KENDÝ HAREKETÝNE BAÞLAYACAK
         //GetComponent<Movement>().CanMove = false;
-
+        Movement.Instance.CanMove = false;
         FillTowerList();
         StartCoroutine(BuildTowerCoroutine());
         
@@ -44,9 +44,9 @@ public class TowerManager : MonoBehaviour
     }
     void FillTowerList()
     {
-        //int humanCount = GameManager.Instance.manCount;
+       // int humanCount = GameManager.Instance.manCount;
         
-        int humanCount = 50; // BU SATIRI KAPATIP ÜSTTEKÝ SATIRI AÇIN
+        int humanCount = 125; // BU SATIRI KAPATIP ÜSTTEKÝ SATIRI AÇIN
 
         for (int i = 1; i <= maxHumanPerRow; i++)
         {

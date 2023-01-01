@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 219148427053538317}
   m_Layer: 0
   m_Name: Crowd
-  m_TagString: Untagged
+  m_TagString: human
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
